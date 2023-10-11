@@ -1,24 +1,30 @@
 import React, { useState, useEffect} from 'react'
-
-import Employee from './employee';
-import Manager from './manager';
 import Modal from './modal';
 
-function Login() {
-
+function Login(props) {
     const [show, setShow] = useState(false);
-    const [userId, setUserId] = useState();
     const [employeeError, setEmployeeError] = useState(false);
     const [managerError, setManagerError] = useState(false);
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('')
 
-    const handleEmployeeSubmit = () => {
-        fetch('localhost:3000/api/getEmployeeId')
-        .then(response => response.json())
+    if (!props.show) {
+        return null;
+    }
+
+    const handleEmployeeSubmit = (e) => {
+        e.preventDefault()
+        fetch('/api/getEmployeeID')
+        .then(response => {
+            console.log(response)
+            return response.json()
+        })
         .then(data => {
+            console.log('Data ' + data)
             setEmployeeError(false)
-            setUserId(data.employeeId)
+            props.setUserId(data)
+            props.setShowEmployee(true)
+            props.setShowLogin(false)
         })
         .catch(err => {
             setEmployeeError(true)
@@ -26,12 +32,18 @@ function Login() {
         })
     }
 
-    const handleManagerSubmit = () => {
-        fetch('localhost:3000/api/getManagerId')
-        .then(response => response.json())
+    const handleManagerSubmit = (e) => {
+        e.preventDefault()
+        fetch('/api/getManagerID')
+        .then(response => {
+            return response.json()
+        })
         .then(data => {
+            console.log(data)
             setManagerError(false)
-            setUserId(data.managerId)
+            props.setUserId(data)
+            props.setShowManager(true)
+            props.setShowLogin(false)
         })
         .catch(err => {
             setManagerError(true)
@@ -44,10 +56,10 @@ function Login() {
         <h1>Login Page/ home page</h1>
 
         <div>
-            <button onClick={() => setShow(true)}>Click Here</button>
+            <button onClick={() => setShow(true)}>Log In</button>
             <Modal show={show} onClose={() => setShow(false)}>
             <div className="form">
-                <form className='employeeForm'>
+                <form className='employeeForm' onSubmit={(e) => handleEmployeeSubmit(e)}>
                     <div className="input-container">
                         <label>Username </label>
                         <input type="text" name="uname" required
@@ -59,10 +71,13 @@ function Login() {
                         onChange={(e) => setEmail(e.target.value)}/>
                     </div>
                     <div className="button-container">
-                        <input type="submit" />
+                        <button type='submit'>
+                            Submit 
+                        </button>
+                        {employeeError ? 'Username or Email not recognized' : ''}
                     </div>
                 </form>
-                <form className='managerForm'>
+                <form className='managerForm' onSubmit={(e) => handleManagerSubmit(e)}>
                     <div className="input-container">
                         <label>Username </label>
                         <input type="text" name="uname" required 
@@ -74,7 +89,10 @@ function Login() {
                         onChange={(e) => setEmail(e.target.value)} />
                     </div>
                     <div className="button-container">
-                        <input type="submit" />
+                        <button type='submit'>
+                            Submit 
+                        </button>
+                        {managerError ? 'Username or Email not recognized' : ''}
                     </div>
                 </form>
             </div>
