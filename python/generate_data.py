@@ -1,9 +1,10 @@
 from faker import Faker
 from datetime import datetime
-from random import randint
+from random import randint, seed
 import csv
 
 fake = Faker()
+seed(8)
 
 word_list = ["Friendly", "Natural", "Optimistic", "Jubilant", "Generous", "Instantaneous", "Good",
     "Nurturing", "Nutritious", "Creative", "Superb", "Amazing", "Quiet", "Divine", "Thriving",
