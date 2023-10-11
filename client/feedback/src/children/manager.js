@@ -1,6 +1,10 @@
 import React, { useState, useEffect} from 'react'
 
-function Manager() {
+function Manager(props) {
+    if (!props.show) {
+        return null;
+    }
+    
     return (
         <h1>Manager Page</h1>
     )
