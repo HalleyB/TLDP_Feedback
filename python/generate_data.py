@@ -66,15 +66,14 @@ dates = []
 for x in range(1000):
     dates.append(fake.date_between_dates(date_start=datetime.strptime('01-01-2021', '%m-%d-%Y').date(), date_end=datetime.strptime('12-31-2021', '%m-%d-%Y').date()))
 
-Faker.seed(0)
-rand_p = []
-for x in range(1000):
-    rand_p.append(fake.paragraph(nb_sentences=3))
 
 Faker.seed(0)
 gen_p = []
 for x in range(1000):
-    gen_p.append(fake.paragraph(nb_sentences=3, ext_word_list=word_list))
+    feedback = fake.paragraph(nb_sentences=3, ext_word_list=word_list)
+    gen_p.append(feedback)
+
+
 
 OUTPUT_FILE = 'feedback_data.csv'
 header = ['feedback_id', 'manager_id', 'date', 'employee_id', 'feedback']
@@ -86,57 +85,58 @@ for i in range(1, NUM_ROWS + 1):
     manager_id = randint(9001, 9005)
     timestamp = dates[i-1]
     employee_id = randint(6, 1000)
-    feedback = gen_p[i-1]
+    feedback = str(gen_p[i-1])
+    print(type(feedback))
 
-    # Create the data row
-    data_row = [
-        feedback_id,
-        manager_id,
-        timestamp.strftime("%Y-%m-%d"),
-        employee_id,
-        feedback
-    ]
+#     # Create the data row
+#     data_row = [
+#         feedback_id,
+#         manager_id,
+#         timestamp.strftime("%Y-%m-%d"),
+#         employee_id,
+#         feedback
+#     ]
 
-    # Add the data row to the list
-    data_rows.append(data_row)
+#     # Add the data row to the list
+#     data_rows.append(data_row)
 
-with open(OUTPUT_FILE, "w", newline="") as file:
-    writer = csv.writer(file)
-    writer.writerow(header)
-    writer.writerows(data_rows)
+# with open(OUTPUT_FILE, "w", newline="") as file:
+#     writer = csv.writer(file)
+#     writer.writerow(header)
+#     writer.writerows(data_rows)
 
-print("Feedback generation complete!")
+# print("Feedback generation complete!")
 
-OUTPUT_FILE = 'employee_data.csv'
-header = ['employee_id', 'employee_info', 'is_manager', 'manager_id']
-NUM_ROWS = 1000
-data_rows = []
-for i in range(1, NUM_ROWS + 1):
-    if i <= 5:
-        employee_id = i + 9000
-        is_manager = True
-        manager_id = None
-    else:
-        employee_id = i
-        is_manager = False
-        manager_id = randint(1, 5) + 9000
+# OUTPUT_FILE = 'employee_data.csv'
+# header = ['employee_id', 'employee_info', 'is_manager', 'manager_id']
+# NUM_ROWS = 1000
+# data_rows = []
+# for i in range(1, NUM_ROWS + 1):
+#     if i <= 5:
+#         employee_id = i + 9000
+#         is_manager = True
+#         manager_id = None
+#     else:
+#         employee_id = i
+#         is_manager = False
+#         manager_id = randint(1, 5) + 9000
     
-    employee_info = profiles[i-1]
+#     employee_info = profiles[i-1]
 
-    # Create the data row
-    data_row = [
-        employee_id,
-        employee_info,
-        is_manager,
-        manager_id
-    ]
+#     # Create the data row
+#     data_row = [
+#         employee_id,
+#         employee_info,
+#         is_manager,
+#         manager_id
+#     ]
 
-    # Add the data row to the list
-    data_rows.append(data_row)
+#     # Add the data row to the list
+#     data_rows.append(data_row)
 
-with open(OUTPUT_FILE, "w", newline="") as file:
-    writer = csv.writer(file)
-    writer.writerow(header)
-    writer.writerows(data_rows)
+# with open(OUTPUT_FILE, "w", newline="") as file:
+#     writer = csv.writer(file)
+#     writer.writerow(header)
+#     writer.writerows(data_rows)
 
-print('Employee data generated!')
+# print('Employee data generated!')
