@@ -21,6 +21,14 @@ module.exports.call = async function call(operation, parameters, callback) {
 
     switch(operation) {
         // read
+        case 'getEmployeeId':
+            callback({employeeId: '4'})
+            break;
+
+        case 'getManagerId':
+            callback({managerId: '8'})
+            break;
+
         case 'managerGetAllFeedback':
             const feedback = 'Manager Feedback'
             callback({ feedback: feedback});

@@ -8,20 +8,40 @@ app.use(cors())
 app.use(bodyParser.json());
 let port = 3001
 
-app.get('/api/managerGetFeedback', cors(), (req, res) => {
+app.get('/api/getEmployeeID', cors(), (req, res) => {
+    dao.call('getEmployeeId', {}, (results) => {
+        if(!results.employeeId) {
+            res.statusCode = 404;
+            res.end
+        } else {
+            res.send(results.employeeId)
+        }
+    })
+})
+
+app.get('/api/getManagerID', cors(), (req, res) => {
+    dao.call('getManagerId', {}, (results) => {
+        if(!results.managerId) {
+            res.statusCode = 404;
+            res.end
+        } else {
+            res.send(results.managerId)
+        }
+    })
+})
+
+app.get('/api/:managerID/managerGetFeedback', cors(), (req, res) => {
     dao.call('managerGetAllFeedback', {}, (results)=> {
-        console.log('here')
         if (!results.feedback) {
             res.statusCode = 404;
             res.end();
         } else {
-            console.log(results.feedback)
             res.send(results.feedback)
         }
         } )
 })
 
-app.get('/api/managerPreviousResponses', cors(), (req, res) => {
+app.get('/api/:managerID/managerPreviousResponses', cors(), (req, res) => {
     dao.call('managerGetPreviousResponses', {}, (results)=> {
         if (!results.responses) {
             res.statusCode = 404;
@@ -32,7 +52,7 @@ app.get('/api/managerPreviousResponses', cors(), (req, res) => {
         } )
 })
 
-app.get('/api/employeePreviousFeedback', cors(), (req, res) => {
+app.get('/api/:employeeID/employeePreviousFeedback', cors(), (req, res) => {
     dao.call('employeeGetPreviousFeedback', {}, (results)=> {
         if (!results.feedback) {
             res.statusCode = 404;
@@ -43,7 +63,7 @@ app.get('/api/employeePreviousFeedback', cors(), (req, res) => {
         } )
 })
 
-app.get('/api/employeeManagerResponses', cors(), (req, res) => {
+app.get('/api/:employeeID/employeeManagerResponses', cors(), (req, res) => {
     dao.call('employeeGetResponses', {}, (results)=> {
         if (!results.responses) {
             res.statusCode = 404;
@@ -66,7 +86,7 @@ app.get('/api/pythonGetData', cors(), (req, res) => {
         } )
 })
 
-app.put('/api/managerResponse', cors(), (req, res) => {
+app.put('/api/:managerID/managerResponse', cors(), (req, res) => {
     dao.call('managerResponseToFeedback', {response: 'Hello there'}, (results) => {
         if (!results.status) {
             res.statusCode = 404;
@@ -77,7 +97,7 @@ app.put('/api/managerResponse', cors(), (req, res) => {
     })
 })
 
-app.put('/api/employeeGiveFeedback', cors(), (req, res) => {
+app.put('/api/:employeeID/employeeGiveFeedback', cors(), (req, res) => {
     dao.call('employeeGiveFeedback', {feedback: 'GENERAL KENOBI'}, (results) => {
         if (!results.status) {
             res.statusCode = 404;
