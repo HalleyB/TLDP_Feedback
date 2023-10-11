@@ -77,7 +77,7 @@ for x in range(1000):
     gen_p.append(fake.paragraph(nb_sentences=3, ext_word_list=word_list))
 
 OUTPUT_FILE = 'feedback_data.csv'
-header = ['feedback_id', 'manager_id' 'date', 'employee_id', 'feedback']
+header = ['feedback_id', 'manager_id', 'date', 'employee_id', 'feedback']
 NUM_ROWS = 1000
 data_rows = []
 for i in range(1, NUM_ROWS + 1):
@@ -91,6 +91,7 @@ for i in range(1, NUM_ROWS + 1):
     # Create the data row
     data_row = [
         feedback_id,
+        manager_id,
         timestamp.strftime("%Y-%m-%d"),
         employee_id,
         feedback
