@@ -2,6 +2,7 @@ from faker import Faker
 from datetime import datetime
 from random import randint, seed
 import csv
+import json
 
 fake = Faker()
 seed(8)
@@ -52,7 +53,39 @@ word_list = ["Friendly", "Natural", "Optimistic", "Jubilant", "Generous", "Insta
     "Dishonest", "Foul", "Gross", "Homely", "Impossible", "Misunderstood", "No", "Nowhere", "Poor", "Revenge", "Shocking",
     "Sticky", "Unjust", "Unwise", "Appalling", "Broken", "Confused", "Cry", "Deplorable", "Dishonorable", "Frighten",
     "Grotesque", "Horrendous", "Inane", "Moan", "Nobody", "Prejudice", "Revolting", "Shoddy", "Stinky", "Unlucky", "Upset",
-    "Atrocious", "Contrary", "Cutting", "Depressed", "Dismal", "Frightful", "Gruesome", "Horrible", "Inelegant"
+    "Atrocious", "Contrary", "Cutting", "Depressed", "Dismal", "Frightful", "Gruesome", "Horrible", "Inelegant",
+    "husband", "respond", "baby", "college", "economic", "process", "attack", "fire", "serious", "product",
+    "interest", "return", "staff", "appear", "film", "factor", "other", "physical", "early", "love", "matter",
+    "school", "company", "exist", "student", "road", "meet", "recent", "decision", "note", "store", "face",
+    "grow", "sell", "record", "hour", "job", "experience", "rock", "point", "consider", "leader", "paper",
+    "below", "food", "develop", "day", "chair", "total", "peace", "hospital", "style", "teacher", "wing",
+    "moment", "short", "power", "film", "wait", "attack", "defense", "mention", "model", "million", "support",
+    "challenge", "nice", "age", "hang", "sound", "husband", "reality", "create", "sell", "yourself", "pull",
+    "sure", "heart", "husband", "operation", "thank", "talk", "clear", "prepare", "course", "ball", "short",
+    "discover", "lead", "course", "bank", "school", "next", "hit", "son", "trial", "job", "view", "news",
+    "organization", "central", "discover", "red", "each", "base", "test", "significant", "strategy", "national",
+    "movie", "sister", "special", "raise", "store", "data", "use", "employee", "word", "church", "dream",
+    "reason", "stage", "letter", "race", "suggest", "low", "summer", "any", "thank", "experience", "financial",
+    "beautiful", "its", "especially", "structure", "hang", "image", "threat", "heavy", "recent", "agree",
+    "describe", "teacher", "tree", "gender", "problem", "perform", "conference", "science", "mind", "none",
+    "student", "group", "good", "throw", "win", "second", "find", "movement", "actually", "shake", "sign",
+    "deep", "teach", "sell", "single", "bill", "different", "politics", "visit", "executive", "son", "card",
+    "dream", "term", "box", "design", "big", "lie", "view", "explain", "effort", "start", "key", "picture",
+    "say", "house", "mention", "kid", "evening", "wish", "summer", "institution", "control", "necessary",
+    "station", "teach", "factor", "kind", "hit", "garden", "event", "remove", "raise", "young", "seat", "war",
+    "main", "trip", "fire", "special", "organization", "situation", "police", "list", "street", "picture",
+    "economic", "force", "role", "less", "artist", "while", "poor", "above", "many", "blood", "door", "strong",
+    "cultural", "purpose", "include", "become", "practice", "pressure", "truth", "loss", "guy", "nice",
+    "general", "full", "allow", "nature", "water", "discuss", "across", "price", "student", "artist", "teacher",
+    "force", "decision", "particularly", "find", "room", "join", "material", "film", "term", "write",
+    "patient", "worker", "door", "will", "near", "ever", "measure", "apply", "field", "environmental",
+    "professor", "anyone", "soldier", "protect", "perform", "strong", "pass", "phone", "response", "attack",
+    "cost", "brother", "hotel", "science", "ability", "performance", "sit", "good", "edge", "reality", "cold",
+    "treat", "newspaper", "anyone", "subject", "suggest", "safe", "vote", "include", "view", "strong", "note",
+    "rate", "price", "sound", "officer", "suggest", "themselves", "religious", "trade", "develop", "available",
+    "outside", "shoulder", "run", "character", "color", "item", "social", "nature", "case", "material",
+    "raise", "hotel", "themselves", "recognize", "hospital", "charge", "dream", "die", "military", "above",
+    "event", "specific", "response", "analysis", "chair", "far", "beat"
 ]
 
 
@@ -60,6 +93,8 @@ Faker.seed(0)
 profiles = []
 for x in range(1000):
     profiles.append(fake.simple_profile())
+    del(profiles[x]['birthdate'])
+
 
 Faker.seed(0)
 dates = []
@@ -107,7 +142,7 @@ with open(OUTPUT_FILE, "w", newline="") as file:
 
 print("Feedback generation complete!")
 
-OUTPUT_FILE = 'employee_data.csv'
+OUTPUT_FILE = 'employee_data.json'
 header = ['employee_id', 'employee_info', 'is_manager', 'manager_id']
 NUM_ROWS = 1000
 data_rows = []
@@ -123,20 +158,20 @@ for i in range(1, NUM_ROWS + 1):
     
     employee_info = profiles[i-1]
 
+
     # Create the data row
-    data_row = [
-        employee_id,
-        employee_info,
-        is_manager,
-        manager_id
-    ]
+    data_row = {
+        'employee_id': employee_id,
+        'employee_info': dict(employee_info),
+        'is_manager': is_manager,
+        'manager_id': manager_id
+    }
 
     # Add the data row to the list
     data_rows.append(data_row)
 
-with open(OUTPUT_FILE, "w", newline="") as file:
-    writer = csv.writer(file)
-    writer.writerow(header)
-    writer.writerows(data_rows)
+
+with open(OUTPUT_FILE, "w") as file:
+    json.dump(data_rows, file)
 
 print('Employee data generated!')
