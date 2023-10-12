@@ -20,6 +20,7 @@ module.exports.call = async function call(operation, parameters, callback) {
     // set the collection to use
     const employeeC = db.collection('employee_data')
     const feedbackC = db.collection('feedback_data')
+    const responseC = db.collection('response_data')
 
     switch(operation) {
         // read
@@ -48,7 +49,8 @@ module.exports.call = async function call(operation, parameters, callback) {
             break;
         
         case 'employeeGetResponses':
-            callback({ responses: 'Responses from manager'})
+            const employeeManagerResponses = await responseC.find({'employee_id':  +parameters.employeeId}).toArray()
+            callback({ responses: employeeManagerResponses})
             break;
 
         case 'pythonGetData':

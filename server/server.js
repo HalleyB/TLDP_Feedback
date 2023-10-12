@@ -64,7 +64,7 @@ app.get('/api/:employeeID/employeePreviousFeedback', cors(), (req, res) => {
 })
 
 app.get('/api/:employeeID/employeeManagerResponses', cors(), (req, res) => {
-    dao.call('employeeGetResponses', {}, (results)=> {
+    dao.call('employeeGetResponses', {employeeId: req.params.employeeID}, (results)=> {
         if (!results.responses) {
             res.statusCode = 404;
             res.end();
