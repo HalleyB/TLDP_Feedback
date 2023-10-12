@@ -77,6 +77,7 @@ function Login(props) {
             <Modal styles={modalStyles} show={show} onClose={() => setShow(false)}>
             <div className="modal-body">
                 <form className='employeeForm' onSubmit={(e) => handleEmployeeSubmit(e)}>
+                    Employee Login
                     <div className="input-container">
                         <label>Username </label>
                         <input type="text" name="uname" required
@@ -95,6 +96,7 @@ function Login(props) {
                     </div>
                 </form>
                 <form className='managerForm' onSubmit={(e) => handleManagerSubmit(e)}>
+                    Manager Login
                     <div className="input-container">
                         <label>Username </label>
                         <input type="text" name="uname" required 
