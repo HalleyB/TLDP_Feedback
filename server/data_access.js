@@ -65,27 +65,27 @@ module.exports.call = async function call(operation, parameters, callback) {
 
         case 'lastEmployee':
             const lastEmployeeNumber = await employeeC.find({}).sort({_id:-1}).limit(1).toArray();
-            callback({ lastFeedback: lastEmployeeNumber})
+            callback({ lastEmployee: lastEmployeeNumber})
             break;
 
         // create
         case 'managerResponseToFeedback':
-            callback({ status: 'Response sucessful ' + parameters.response})
+            callback({ statusNew: 'Response sucessful ' + parameters.response})
             break;
 
         case 'employeeGiveFeedback':
             await feedbackC.insertOne(parameters.feedback)
             .then(
-                (result)=>{callback({ status: 'Feedback submitted succesfully'})},
-                (reason)=>{callback({ status: 'Error submitting feedback'})}
+                (result)=>{callback({ statusNew: 'Feedback submitted succesfully'})},
+                (reason)=>{callback({ statusNew: 'Error submitting feedback'})}
             )
             break;
 
         case 'addNewEmployee':
             await employeeC.insertOne(parameters.employeeObject)
             .then(
-                (result)=>{callback({ status: 'Employee added succesfully'})},
-                (reason)=>{callback({ status: 'Failed to add employee'})}
+                (result)=>{callback({ statusNew: 'Employee added succesfully'})},
+                (reason)=>{callback({ statusNew: 'Failed to add employee'})}
             )
 
         case 'pythonGiveAnalysis':
