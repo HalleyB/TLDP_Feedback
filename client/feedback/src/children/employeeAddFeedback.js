@@ -46,6 +46,12 @@ function EmployeeFeedback(props) {
         })
     }
 
+    const setDate = () => {
+        let date = new Date()
+        date = date.toISOString().split('T')[0]
+        setFeedbackForm({...feedbackForm, date: date})
+    }
+
     const handleSubmit = () => {
         if (!feedbackForm.feedback) {
             setFeedbackErr(true)
@@ -57,6 +63,7 @@ function EmployeeFeedback(props) {
             })
             .then(data => {
                 props.setShow(false)
+                props.setDate()
                 let feedbackId = data
                 feedbackId = feedbackId + 1
                 setFeedbackForm({...feedbackForm, feedback_id: feedbackId})
