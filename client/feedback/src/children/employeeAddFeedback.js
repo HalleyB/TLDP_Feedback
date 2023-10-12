@@ -97,7 +97,7 @@ function EmployeeFeedback(props) {
 
     return (<div>
         <div>
-            <button onClick={() => props.setShow(true)}>Add Feedback</button>
+            <button className='button' onClick={() => props.setShow(true)}>Add Feedback</button>
             <Modal styles={modalStyles} show={props.show} onClose={() => props.setShow(false)}>
                 <div className="modal-body">
                     <FormControl>
@@ -162,8 +162,8 @@ function EmployeeFeedback(props) {
                 </div>
                 {feedbackErr ? 'Please enter feedback' : ''}
                 <div>
-                    <button type='submit' onClick={e => (handleSubmit())}>Submit</button>
-                    <button onClick={e => props.setShow(false)}>Cancel</button>
+                    <button className='button' type='submit' onClick={e => (handleSubmit())}>Submit</button>
+                    <button className='button' onClick={e => props.setShow(false)}>Cancel</button>
                 </div>
             </Modal>
         </div>
