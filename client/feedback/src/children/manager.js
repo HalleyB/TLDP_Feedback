@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import ManagerResponse from './managerAddResponse';
-import Stack from '@mui/material/Stack';
+
 
 
 function Manager(props) {
@@ -47,7 +47,7 @@ function Manager(props) {
             {pastFeedback.map((feedbackObject, index) => {
                 return (
                     <p key={index}>
-                    Feedback #{feedbackObject.feedback_id}: {feedbackObject.feedback}
+                    {feedbackObject.sentiment} Feedback #{feedbackObject.feedback_id}: {feedbackObject.feedback}
                     </p>
                 )
             })}
