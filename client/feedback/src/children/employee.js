@@ -46,7 +46,7 @@ function Employee(props) {
         return null;
     }
 
-    return (<div>
+    return (<div className='parent'>
         <h1>Welcome {props.userInfo.employee_info.name}</h1>
         <div className='past-feedback'>
             <h3>Past Feedback</h3>
@@ -60,7 +60,7 @@ function Employee(props) {
             })}
             </div>
         </div>
-        <div className='manager-responses'>
+        <div className='past-responses'>
             <h3>Manager Responses</h3>
             <div className='responses'>
                 {managerResponses.map((responseObject, index) => {

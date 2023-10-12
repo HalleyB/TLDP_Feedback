@@ -39,7 +39,7 @@ function Manager(props) {
         return null;
     }
 
-    return (<div>
+    return (<div className='parent'>
         <h1>Welcome {props.userInfo.employee_info.name}</h1>
         <div className='past-feedback'>
             <h3>Feedback Received</h3>
@@ -55,7 +55,7 @@ function Manager(props) {
         </div>
         <div className='past-responses'>
             <h3>Responses Given</h3>
-            <div className='Responses'>
+            <div className='responses'>
             {pastResponses.map((responseObject, index) => {
                 return (
                     <p key={index}>

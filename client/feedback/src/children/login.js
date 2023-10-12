@@ -76,11 +76,10 @@ function Login(props) {
 
     return (
         <div>
-        <h1>Login Page/ home page</h1>
-
+        <h1>Welcome to Fellowship Feedback!</h1>
         <div>
-            <button onClick={() => setShow(true)}>Log In</button>
-            <button onClick={() => setShowNew(true)}>Sign Up</button>
+            <Button className="button" variant="outlined" onClick={() => setShow(true)}>Log In</Button>
+            <Button className="button" variant="outlined" onClick={() => setShowNew(true)}>Sign Up</Button>
             <Modal styles={modalStyles} show={show} onClose={() => setShow(false)}>
             <div className="modal-body">
                 <FormControl>
