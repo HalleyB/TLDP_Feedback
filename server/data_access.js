@@ -19,6 +19,7 @@ module.exports.call = async function call(operation, parameters, callback) {
     const db = client.db(dbName);
     // set the collection to use
     const employeeC = db.collection('employee_data')
+    const feedbackC = db.collection('feedback_data')
 
     switch(operation) {
         // read
@@ -28,7 +29,8 @@ module.exports.call = async function call(operation, parameters, callback) {
             break;
 
         case 'getManagerId':
-            callback({managerId: '8'})
+            const managerId = await employeeC.findOne({'employee_info.username': parameters.username})
+            callback({managerId: managerId})
             break;
 
         case 'managerGetAllFeedback':
@@ -41,7 +43,8 @@ module.exports.call = async function call(operation, parameters, callback) {
             break;
 
         case 'employeeGetPreviousFeedback':
-            callback({ feedback: 'Previous employee feedback'})
+            const employeeFeedback = await feedbackC.find({'employee_id': +parameters.employeeId}).toArray()
+            callback({ employeeFeedback: employeeFeedback})
             break;
         
         case 'employeeGetResponses':

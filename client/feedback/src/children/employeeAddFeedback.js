@@ -20,9 +20,9 @@ function EmployeeFeedback(props) {
     return (<div>
         <div>
             <button onClick={() => props.setShow(true)}>Add Feedback</button>
-            <Modal show={props.show} onClose={() => props.setShow(false)}>
+            <Modal styles={modalStyles} show={props.show} onClose={() => props.setShow(false)}>
                 <div className="modal-body">
-
+                    
                 </div>
             </Modal>
         </div>

@@ -14,13 +14,14 @@ app.get('/api/getEmployeeID/:username', cors(), (req, res) => {
             res.statusCode = 404;
             res.end()
         } else {
+            console.log(results.employeeId)
             res.send(results.employeeId)
         }
     })
 })
 
-app.get('/api/getManagerID', cors(), (req, res) => {
-    dao.call('getManagerId', {}, (results) => {
+app.get('/api/getManagerID/:username', cors(), (req, res) => {
+    dao.call('getManagerId', {username: req.params.username}, (results) => {
         if(!results.managerId) {
             res.statusCode = 404;
             res.end()
@@ -53,12 +54,12 @@ app.get('/api/:managerID/managerPreviousResponses', cors(), (req, res) => {
 })
 
 app.get('/api/:employeeID/employeePreviousFeedback', cors(), (req, res) => {
-    dao.call('employeeGetPreviousFeedback', {}, (results)=> {
-        if (!results.feedback) {
+    dao.call('employeeGetPreviousFeedback', {employeeId: req.params.employeeID}, (results)=> {
+        if (!results.employeeFeedback) {
             res.statusCode = 404;
             res.end();
         } else {
-            res.send(results.feedback)
+            res.send(results.employeeFeedback)
         }
         } )
 })
