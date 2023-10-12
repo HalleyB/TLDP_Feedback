@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.modal-body {
+  background-color: white;
+  padding: .5vw;
+  border-style: solid;
+}

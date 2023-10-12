@@ -8,11 +8,11 @@ app.use(cors())
 app.use(bodyParser.json());
 let port = 3001
 
-app.get('/api/getEmployeeID', cors(), (req, res) => {
-    dao.call('getEmployeeId', {}, (results) => {
+app.get('/api/getEmployeeID/:username', cors(), (req, res) => {
+    dao.call('getEmployeeId', { username: req.params.username}, (results) => {
         if(!results.employeeId) {
             res.statusCode = 404;
-            res.end
+            res.end()
         } else {
             res.send(results.employeeId)
         }
@@ -23,7 +23,7 @@ app.get('/api/getManagerID', cors(), (req, res) => {
     dao.call('getManagerId', {}, (results) => {
         if(!results.managerId) {
             res.statusCode = 404;
-            res.end
+            res.end()
         } else {
             res.send(results.managerId)
         }

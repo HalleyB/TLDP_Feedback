@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react'
 import Modal from './modal';
 
+
 function Login(props) {
     const [show, setShow] = useState(false);
     const [employeeError, setEmployeeError] = useState(false);
@@ -8,21 +9,32 @@ function Login(props) {
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('')
 
+    const modalStyles = {
+        position: 'fixed',
+        left: '0',
+        right: '0',
+        top: '0',
+        bottom: '0',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      };
+
     if (!props.show) {
         return null;
     }
 
     const handleEmployeeSubmit = (e) => {
         e.preventDefault()
-        fetch('/api/getEmployeeID')
+        fetch(`/api/getEmployeeID/${userName}`)
         .then(response => {
             console.log(response)
             return response.json()
         })
         .then(data => {
-            console.log('Data ' + data)
             setEmployeeError(false)
-            props.setUserId(data)
+            props.setUserId(data.employee_id)
             props.setShowEmployee(true)
             props.setShowLogin(false)
         })
@@ -57,8 +69,8 @@ function Login(props) {
 
         <div>
             <button onClick={() => setShow(true)}>Log In</button>
-            <Modal show={show} onClose={() => setShow(false)}>
-            <div className="form">
+            <Modal styles={modalStyles} show={show} onClose={() => setShow(false)}>
+            <div className="modal-body">
                 <form className='employeeForm' onSubmit={(e) => handleEmployeeSubmit(e)}>
                     <div className="input-container">
                         <label>Username </label>

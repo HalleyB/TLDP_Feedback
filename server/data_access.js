@@ -18,11 +18,13 @@ module.exports.call = async function call(operation, parameters, callback) {
     // set the database to use
     const db = client.db(dbName);
     // set the collection to use
+    const employeeC = db.collection('employee_data')
 
     switch(operation) {
         // read
         case 'getEmployeeId':
-            callback({employeeId: '4'})
+            const employeeId = await employeeC.findOne({'employee_info.username': parameters.username})
+            callback({employeeId: employeeId})
             break;
 
         case 'getManagerId':
