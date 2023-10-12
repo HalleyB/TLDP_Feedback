@@ -40,7 +40,8 @@ module.exports.call = async function call(operation, parameters, callback) {
             break;
 
         case 'managerGetPreviousResponses':
-            callback({ responses: 'Previous Manager responses'})
+            const responses = await responseC.find({'manager_id': +parameters.employeeId}).toArray()
+            callback({ responses: responses})
             break;
 
         case 'employeeGetPreviousFeedback':

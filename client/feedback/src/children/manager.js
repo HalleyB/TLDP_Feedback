@@ -6,7 +6,8 @@ import Stack from '@mui/material/Stack';
 function Manager(props) {
     const [showModal, setShowModal] = useState(false)
     const [pastFeedback, setPastFeedback] = useState([])
-    
+    const [pastResponses, setPastResponses] = useState([])
+
     const getPastFeedback = () => {
         fetch(`/api/${props.userId}/managerGetFeedback`)
         .then(response => {
@@ -17,9 +18,20 @@ function Manager(props) {
         })
     }
 
+    const getPastResponses = () => {
+        fetch(`/api/${props.userId}/managerPreviousResponses`)
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            setPastResponses(data)
+        })
+    }
+
     useEffect(() => {
         if (props.userId) {
             getPastFeedback()
+            getPastResponses()
         }
     }, [props.userId])
 
@@ -36,6 +48,18 @@ function Manager(props) {
                 return (
                     <p key={index}>
                     Feedback #{feedbackObject.feedback_id}: {feedbackObject.feedback}
+                    </p>
+                )
+            })}
+            </div>
+        </div>
+        <div className='past-responses'>
+            <h3>Responses Given</h3>
+            <div className='Responses'>
+            {pastResponses.map((responseObject, index) => {
+                return (
+                    <p key={index}>
+                    Responded to Feedback #{responseObject.feedback_id}: {responseObject.response}
                     </p>
                 )
             })}
