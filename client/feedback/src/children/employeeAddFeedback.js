@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -12,14 +12,11 @@ function EmployeeFeedback(props) {
     const [feedbackForm, setFeedbackForm] = useState({
         manager_id: props.userInfo.manager_id, date: '', 
         employee_id: props.userInfo.employee_id, feedback: '',
-        job_satisfaction: -1, manager_feedback: -1, career_growth: -1
+        job_satisfaction: -1, manager_feedback: -1, career_growth: -1,
+        feedback_id: 0
     });
     const [feedbackErr, setFeedbackErr] = useState(false);
 
-
-    if (!props.show) {
-        return null;
-    }
 
     const modalStyles = {
         position: 'fixed',
@@ -35,12 +32,10 @@ function EmployeeFeedback(props) {
 
     const newInput = (e) => {
         setFeedbackForm({...feedbackForm, [e.target.name]: Number(e.target.value)})
-        console.log(feedbackForm)
     }
 
     const newInputText = (e) => {
         setFeedbackForm({...feedbackForm, [e.target.name]: e.target.value})
-        console.log(feedbackForm)
     }
 
     const handleSubmit = () => {
@@ -53,10 +48,9 @@ function EmployeeFeedback(props) {
                 return response.json()
             })
             .then(data => {
-                let feedbackId = data.data
+                let feedbackId = data
                 feedbackId = feedbackId + 1
                 setFeedbackForm({...feedbackForm, feedback_id: feedbackId})
-                submitData()
             })
         }
     }
@@ -69,6 +63,16 @@ function EmployeeFeedback(props) {
             },
             body: JSON.stringify(feedbackForm)
         })
+    }
+
+    useEffect(() => {
+        if (feedbackForm.feedback_id) {
+            submitData()
+        }
+    }, [feedbackForm])
+
+    if (!props.show) {
+        return null;
     }
 
     return (<div>
