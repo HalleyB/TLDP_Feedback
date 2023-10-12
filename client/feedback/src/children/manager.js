@@ -7,6 +7,8 @@ function Manager(props) {
     const [showModal, setShowModal] = useState(false)
     const [pastFeedback, setPastFeedback] = useState([])
     const [pastResponses, setPastResponses] = useState([])
+    const [unansweredFeedback, setUnansweredFeedback] = useState([])
+    const [newData, setNewData] = useState(false)
 
     const getPastFeedback = () => {
         fetch(`/api/${props.userId}/managerGetFeedback`)
@@ -28,12 +30,39 @@ function Manager(props) {
         })
     }
 
+    const getUnansweredFeedback = () => {
+        let tempArray = []
+        pastFeedback.map((oneFeedback) => {
+            let found = pastResponses.some((oneResponse) => {
+                return(oneResponse.feedback_id === oneFeedback.feedback_id)
+            })
+            if (!found) {
+                tempArray.push(oneFeedback)
+            }
+        })
+        setUnansweredFeedback(tempArray)
+    }
+
     useEffect(() => {
         if (props.userId) {
             getPastFeedback()
             getPastResponses()
         }
     }, [props.userId])
+
+    useEffect(() => {
+        if (pastFeedback.length && pastResponses.length) {
+            getUnansweredFeedback()
+        }
+    }, [pastFeedback, pastResponses])
+
+    useEffect(() => {
+        if (newData) {
+            getPastFeedback()
+            getPastResponses()
+            setNewData(false)
+        }
+    }, [newData])
 
     if (!props.show) {
         return null;
@@ -65,8 +94,10 @@ function Manager(props) {
             })}
             </div>
         </div>
+        
         <button className="button" onClick={() => setShowModal(true)}>Add New Response</button>
-        <ManagerResponse show={showModal} setShow={setShowModal} />
+        <ManagerResponse show={showModal} setShow={setShowModal} setNewData={setNewData}
+        unansweredFeedback={unansweredFeedback} userId={props.userId}/>
     </div>
     )
 }

@@ -108,6 +108,7 @@ app.get('/api/lastEmployee', cors(), (req, res) => {
     })
 })
 
+
 app.post('/api/newEmployee', cors(), (req, res) => {
     dao.call('addNewEmployee', {employeeObject: req.body}, (results) => {
         if (!results.statusNew) {
@@ -120,7 +121,7 @@ app.post('/api/newEmployee', cors(), (req, res) => {
 })
 
 app.post('/api/:managerID/managerResponse', cors(), (req, res) => {
-    dao.call('managerResponseToFeedback', {response: 'Hello there'}, (results) => {
+    dao.call('managerResponseToFeedback', {response: req.body}, (results) => {
         if (!results.statusNew) {
             res.statusCode = 404;
             res.end();

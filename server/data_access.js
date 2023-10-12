@@ -70,7 +70,11 @@ module.exports.call = async function call(operation, parameters, callback) {
 
         // create
         case 'managerResponseToFeedback':
-            callback({ statusNew: 'Response sucessful ' + parameters.response})
+            await responseC.insertOne(parameters.response)
+            .then(
+                (result)=>{callback({statusNew: 'Response submitted succesfully'})},
+                (reason)=>{callback({statusNew: 'Erro submitting response'})}
+            )
             break;
 
         case 'employeeGiveFeedback':
