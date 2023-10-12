@@ -14,7 +14,6 @@ app.get('/api/getEmployeeID/:username', cors(), (req, res) => {
             res.statusCode = 404;
             res.end()
         } else {
-            console.log(results.employeeId)
             res.send(results.employeeId)
         }
     })
@@ -87,7 +86,18 @@ app.get('/api/pythonGetData', cors(), (req, res) => {
         } )
 })
 
-app.put('/api/:managerID/managerResponse', cors(), (req, res) => {
+app.get('/api/lastFeedback', cors(), (req, res) => {
+    dao.call('lastFeedback', {}, (results) => {
+        if (!results.lastFeedback) {
+            res.statusCode = 404;
+            res.end();
+        } else {
+            res.send(JSON.stringify(results.lastFeedback[0].feedback_id))
+        }
+    })
+})
+
+app.post('/api/:managerID/managerResponse', cors(), (req, res) => {
     dao.call('managerResponseToFeedback', {response: 'Hello there'}, (results) => {
         if (!results.status) {
             res.statusCode = 404;
@@ -98,8 +108,9 @@ app.put('/api/:managerID/managerResponse', cors(), (req, res) => {
     })
 })
 
-app.put('/api/:employeeID/employeeGiveFeedback', cors(), (req, res) => {
-    dao.call('employeeGiveFeedback', {feedback: 'GENERAL KENOBI'}, (results) => {
+app.post('/api/:employeeID/employeeGiveFeedback', cors(), (req, res) => {
+    console.log(typeof req.body)
+    dao.call('employeeGiveFeedback', {feedback: req.body}, (results) => {
         if (!results.status) {
             res.statusCode = 404;
             res.end();
@@ -109,7 +120,7 @@ app.put('/api/:employeeID/employeeGiveFeedback', cors(), (req, res) => {
     })
 })
 
-app.put('/api/pythonAnalysis', cors(), (req, res) => {
+app.post('/api/pythonAnalysis', cors(), (req, res) => {
     dao.call('pythonGiveAnalysis', {analysis: 'snake'}, (results) => {
         if (!results.status) {
             res.statusCode = 404;

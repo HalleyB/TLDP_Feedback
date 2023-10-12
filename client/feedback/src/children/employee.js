@@ -40,7 +40,7 @@ function Employee(props) {
             </ul>
         </div>
         <button onClick={() => setShowModal(true)}>Add New Feedback</button>
-        <EmployeeFeedback show={showModal} setShow={setShowModal} />
+        <EmployeeFeedback show={showModal} setShow={setShowModal} userInfo={props.userInfo} />
     </div>
     )
 }

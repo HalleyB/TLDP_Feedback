@@ -55,13 +55,22 @@ module.exports.call = async function call(operation, parameters, callback) {
             callback({ data: "Here's some data"})
             break;
 
+        case 'lastFeedback':
+            const lastFeedbackNumber = await feedbackC.find({}).sort({_id:-1}).limit(1).toArray();
+            callback({ lastFeedback: lastFeedbackNumber})
+            break;
+
         // create
         case 'managerResponseToFeedback':
             callback({ status: 'Response sucessful ' + parameters.response})
             break;
 
         case 'employeeGiveFeedback':
-            callback({ status: 'Feedback sucessful ' + parameters.feedback})
+            await feedbackC.insertOne(parameters.feedback)
+            .then(
+                (result)=>{callback({ status: 'Feedback submitted succesfully'})},
+                (reason)=>{callback({ status: 'Error submitting feedback'})}
+            )
             break;
 
         case 'pythonGiveAnalysis':
