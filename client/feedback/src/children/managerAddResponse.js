@@ -45,7 +45,6 @@ function ManagerResponse(props) {
                             id="select-feedback"
                             value={props.feedbackId}
                             label="Feedback Id"
-                            // onChange={handleChange}
 >
                             <MenuItem value={10}>Ten</MenuItem>
                             <MenuItem value={20}>Twenty</MenuItem>
