@@ -108,6 +108,12 @@ for x in range(1000):
     feedback = fake.paragraph(nb_sentences=3, ext_word_list=word_list)
     gen_p.append(feedback)
 
+Faker.seed(0)
+res_p = []
+for x in range(100):
+    response = fake.paragraph(nb_sentences=3)
+    res_p.append(response)
+
 
 
 OUTPUT_FILE = 'feedback_data.csv'
@@ -175,3 +181,40 @@ with open(OUTPUT_FILE, "w") as file:
     json.dump(data_rows, file)
 
 print('Employee data generated!')
+
+
+OUTPUT_FILE = 'response_data.csv'
+header = ['feedback_id', 'manager_id', 'date', 'employee_id', 'feedback', 'response']
+NUM_ROWS = 99
+data_rows = []
+for i in range(1, NUM_ROWS + 1):
+    # Generate random values for each column
+    feedback_id = i
+    manager_id = randint(9001, 9005)
+    timestamp = dates[i-1]
+    employee_id = randint(6, 1000)
+    feedback = gen_p[i-1]
+    response = res_p[i-1]
+
+
+    # Create the data row
+    data_row = [
+        feedback_id,
+        manager_id,
+        timestamp.strftime("%Y-%m-%d"),
+        employee_id,
+        feedback,
+        response
+    ]
+
+    # Add the data row to the list
+    data_rows.append(data_row)
+
+data_rows.append([551, 9003, '2021-05-11', 21,'Teach Positive Pleasant Positive Disappointed Sparkling nature problem.', res_p[99]])
+
+with open(OUTPUT_FILE, "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerow(header)
+    writer.writerows(data_rows)
+
+print("Response data complete!")
