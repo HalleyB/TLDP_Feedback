@@ -31,7 +31,7 @@ app.get('/api/getManagerID/:username', cors(), (req, res) => {
 })
 
 app.get('/api/:managerID/managerGetFeedback', cors(), (req, res) => {
-    dao.call('managerGetAllFeedback', {}, (results)=> {
+    dao.call('managerGetAllFeedback', {employeeId: req.params.managerID}, (results)=> {
         if (!results.feedback) {
             res.statusCode = 404;
             res.end();

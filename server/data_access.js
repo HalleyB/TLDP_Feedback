@@ -34,7 +34,7 @@ module.exports.call = async function call(operation, parameters, callback) {
             break;
 
         case 'managerGetAllFeedback':
-            const feedback = 'Manager Feedback'
+            const feedback = await feedbackC.find({'manager_id': +parameters.employeeId}).toArray()
             callback({ feedback: feedback});
             break;
 

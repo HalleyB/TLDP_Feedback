@@ -29,15 +29,15 @@ function Manager(props) {
         <h1>Welcome {props.userInfo.employee_info.name}</h1>
         <div className='past-feedback'>
             <h3>Feedback Received</h3>
-            <div className='feedback'>
+            <ul className='feedback'>
             {pastFeedback.map((feedbackObject, index) => {
                 return (
-                    <p key={index}>
+                    <li key={index}>
                         {feedbackObject.feedback}
-                    </p>
+                    </li>
                 )
             })}
-            </div>
+            </ul>
         </div>
         <button onClick={() => setShowModal(true)}>Add New Response</button>
         <ManagerResponse show={showModal} setShow={setShowModal} />
