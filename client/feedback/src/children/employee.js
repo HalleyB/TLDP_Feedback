@@ -50,27 +50,27 @@ function Employee(props) {
         <h1>Welcome {props.userInfo.employee_info.name}</h1>
         <div className='past-feedback'>
             <h3>Past Feedback</h3>
-            <ul className='feedback'>
+            <div className='feedback'>
             {pastFeedback.map((feedbackObject, index) => {
                 return (
-                    <li key={index}>
-                        {feedbackObject.feedback}
-                    </li>
+                    <p key={index}>
+                        Feedback to Manager {feedbackObject.manager_id}: {feedbackObject.feedback}
+                    </p>
                 )
             })}
-            </ul>
+            </div>
         </div>
         <div className='manager-responses'>
             <h3>Manager Responses</h3>
-            <ul className='responses'>
+            <div className='responses'>
                 {managerResponses.map((responseObject, index) => {
                     return (
-                        <li key={index}>
-                            {responseObject.response}
-                        </li>
+                        <p key={index}>
+                            Response from Manager {responseObject.manager_id}: {responseObject.response}
+                        </p>
                     )
                 })}
-            </ul>
+            </div>
         </div>
         <button onClick={() => setShowModal(true)}>Add New Feedback</button>
         <EmployeeFeedback show={showModal} setShow={setShowModal} 
