@@ -1,11 +1,22 @@
+import { useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 import Modal from "./modal";
 
 function EmployeeFeedback(props) {
+    const [feedbackForm, setFeedbackForm] = useState({
+        manager_id: props.userInfo.manager_id, date: '', 
+        employee_id: props.userInfo.employee_id, feedback: '',
+        job_satisfaction: -1, manager_feedback: -1, career_growth: -1
+    });
+    const [feedbackErr, setFeedbackErr] = useState(false);
+
+
     if (!props.show) {
         return null;
     }
@@ -20,7 +31,45 @@ function EmployeeFeedback(props) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
-      };
+    };
+
+    const newInput = (e) => {
+        setFeedbackForm({...feedbackForm, [e.target.name]: Number(e.target.value)})
+        console.log(feedbackForm)
+    }
+
+    const newInputText = (e) => {
+        setFeedbackForm({...feedbackForm, [e.target.name]: e.target.value})
+        console.log(feedbackForm)
+    }
+
+    const handleSubmit = () => {
+        if (!feedbackForm.feedback) {
+            setFeedbackErr(true)
+        } else {
+            
+            fetch('/api/lastFeedback')
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                let feedbackId = data.data
+                feedbackId = feedbackId + 1
+                setFeedbackForm({...feedbackForm, feedback_id: feedbackId})
+                submitData()
+            })
+        }
+    }
+
+    const submitData = () => {
+        fetch(`/api/${props.userInfo.employee_id}/employeeGiveFeedback`, {
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(feedbackForm)
+        })
+    }
 
     return (<div>
         <div>
@@ -28,11 +77,13 @@ function EmployeeFeedback(props) {
             <Modal styles={modalStyles} show={props.show} onClose={() => props.setShow(false)}>
                 <div className="modal-body">
                     <FormControl>
-                        <FormLabel id='Job Satisfaction'> Job Satisfaction
+                        Please rate your overall job satisfaction
+                        <FormLabel onChange={e => (newInput(e))} id='Job Satisfaction'>
                         <RadioGroup
+                            required
                             row
                             aria-labelledby="radio-buttons-group-label"
-                            name="row-radio-buttons-group"
+                            name='job_satisfaction'
                         >
                             <FormControlLabel value="1" control={<Radio />} label="1" labelPlacement="bottom"/>
                             <FormControlLabel value="2" control={<Radio />} label="2" labelPlacement="bottom"/>
@@ -42,11 +93,13 @@ function EmployeeFeedback(props) {
 
                         </RadioGroup>
                         </FormLabel>
-                        <FormLabel id='Job Satisfaction'> How well does the manager provide feedback
+                        How well does the manager provide feedback
+                        <FormLabel onChange={e => (newInput(e))} id='Manager Feedback' >
                         <RadioGroup
+                            required
                             row
                             aria-labelledby="radio-buttons-group-label"
-                            name="row-radio-buttons-group"
+                            name="manager_feedback"
                         >
                             <FormControlLabel value="1" control={<Radio />} label="1" labelPlacement="bottom"/>
                             <FormControlLabel value="2" control={<Radio />} label="2" labelPlacement="bottom"/>
@@ -56,11 +109,13 @@ function EmployeeFeedback(props) {
 
                         </RadioGroup>
                         </FormLabel>
-                        <FormLabel id='Job Satisfaction'> How much does the manager help with your career growth
+                        How much does the manager help with your career growth
+                        <FormLabel onChange={e => (newInput(e))} id='Career Growth'>
                         <RadioGroup
+                            required
                             row
                             aria-labelledby="radio-buttons-group-label"
-                            name="row-radio-buttons-group"
+                            name="career_growth"
                         >
                             <FormControlLabel value="1" control={<Radio />} label="1" labelPlacement="bottom"/>
                             <FormControlLabel value="2" control={<Radio />} label="2" labelPlacement="bottom"/>
@@ -70,7 +125,21 @@ function EmployeeFeedback(props) {
 
                         </RadioGroup>
                         </FormLabel>
+                        Please provide additional feedback here
+                        <TextField onChange={e => (newInputText(e))}
+                            required
+                            id="outlined-textarea"
+                            label="Additional Feedback"
+                            placeholder="Placeholder"
+                            multiline
+                            name='feedback'
+                        />
                     </FormControl>
+                </div>
+                {feedbackErr ? 'Please enter feedback' : ''}
+                <div>
+                    <button type='submit' onClick={e => (handleSubmit())}>Submit</button>
+                    <button onClick={e => props.setShow(false)}>Cancel</button>
                 </div>
             </Modal>
         </div>
