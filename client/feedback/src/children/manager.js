@@ -1,5 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import ManagerResponse from './managerAddResponse';
+import Stack from '@mui/material/Stack';
+
 
 function Manager(props) {
     const [showModal, setShowModal] = useState(false)
@@ -29,15 +31,15 @@ function Manager(props) {
         <h1>Welcome {props.userInfo.employee_info.name}</h1>
         <div className='past-feedback'>
             <h3>Feedback Received</h3>
-            <ul className='feedback'>
+            <div className='feedback'>
             {pastFeedback.map((feedbackObject, index) => {
                 return (
-                    <li key={index}>
-                        {feedbackObject.feedback}
-                    </li>
+                    <p key={index}>
+                    Feedback #{feedbackObject.feedback_id}: {feedbackObject.feedback}
+                    </p>
                 )
             })}
-            </ul>
+            </div>
         </div>
         <button onClick={() => setShowModal(true)}>Add New Response</button>
         <ManagerResponse show={showModal} setShow={setShowModal} />
