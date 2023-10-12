@@ -97,6 +97,28 @@ app.get('/api/lastFeedback', cors(), (req, res) => {
     })
 })
 
+app.get('/api/lastEmployee', cors(), (req, res) => {
+    dao.call('lastEmployee', {}, (results) => {
+        if (!results.lastEmployee) {
+            res.statusCode = 404;
+            res.end();
+        } else {
+            res.send(JSON.stringify(results.lastEmployee[0].employee_id))
+        }
+    })
+})
+
+app.post('/api/newEmployee', cors(), (req, res) => {
+    dao.call('addNewEmployee', {employeeObject: req.body}, (results) => {
+        if (!results.status) {
+            res.statusCode = 404;
+            res.end();
+        } else {
+            res.send(results.status)
+        }
+    })
+})
+
 app.post('/api/:managerID/managerResponse', cors(), (req, res) => {
     dao.call('managerResponseToFeedback', {response: 'Hello there'}, (results) => {
         if (!results.status) {

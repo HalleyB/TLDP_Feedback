@@ -5,6 +5,7 @@ function Employee(props) {
     const [showModal, setShowModal] = useState(false)
     const [pastFeedback, setPastFeedback] = useState([])
     const [managerResponses, setManagerResponses] = useState([])
+    const [newData, setNewData] = useState(false)
 
     const getPastFeedback = () => {
         fetch(`/api/${props.userId}/employeePreviousFeedback`)
@@ -32,6 +33,14 @@ function Employee(props) {
             getManagerResponses()
         }
     }, [props.userId])
+
+    useEffect(() => {
+        if(newData) {
+            getPastFeedback()
+            getManagerResponses()
+            setNewData(false)
+        }
+    }, [newData])
 
     if (!props.show) {
         return null;
@@ -64,7 +73,8 @@ function Employee(props) {
             </ul>
         </div>
         <button onClick={() => setShowModal(true)}>Add New Feedback</button>
-        <EmployeeFeedback show={showModal} setShow={setShowModal} userInfo={props.userInfo} />
+        <EmployeeFeedback show={showModal} setShow={setShowModal} 
+        userInfo={props.userInfo} setNewData={setNewData}/>
     </div>
     )
 }

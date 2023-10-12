@@ -1,13 +1,19 @@
 import React, { useState, useEffect} from 'react'
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import Modal from './modal';
+import SignUp from './signup';
+import { FormControl } from '@mui/material';
+
 
 
 function Login(props) {
     const [show, setShow] = useState(false);
+    const [showNew, setShowNew] = useState(false);
     const [employeeError, setEmployeeError] = useState(false);
     const [managerError, setManagerError] = useState(false);
     const [userName, setUserName] = useState('');
-    const [email, setEmail] = useState('')
 
     const modalStyles = {
         position: 'fixed',
@@ -74,48 +80,52 @@ function Login(props) {
 
         <div>
             <button onClick={() => setShow(true)}>Log In</button>
+            <button onClick={() => setShowNew(true)}>Sign Up</button>
             <Modal styles={modalStyles} show={show} onClose={() => setShow(false)}>
             <div className="modal-body">
-                <form className='employeeForm' onSubmit={(e) => handleEmployeeSubmit(e)}>
-                    Employee Login
-                    <div className="input-container">
-                        <label>Username </label>
-                        <input type="text" name="uname" required
-                        onChange={(e) => setUserName(e.target.value)} />
-                    </div>
-                    <div className="input-container">
-                        <label>Password </label>
-                        <input type="password" name="pass" required 
-                        onChange={(e) => setEmail(e.target.value)}/>
-                    </div>
-                    <div className="button-container">
-                        <button type='submit'>
-                            Submit 
-                        </button>
-                        {employeeError ? 'Username or Email not recognized' : ''}
-                    </div>
-                </form>
-                <form className='managerForm' onSubmit={(e) => handleManagerSubmit(e)}>
+                <FormControl>
+                    Employee login
+                    <TextField  onChange={(e) => setUserName(e.target.value)}
+                            required
+                            id="outlined-textarea"
+                            label="Username"
+                            placeholder="Placeholder"
+                            multiline
+                            name='username'
+                        />
+                        <TextField 
+                            required
+                            id="outlined-textarea"
+                            label="Password"
+                            placeholder="Placeholder"
+                            multiline
+                            name='password'
+                        />
+                        <Button variant="outlined" onClick={(e) => handleEmployeeSubmit(e)}>Submit</Button>
+                </FormControl>
+                <FormControl>
                     Manager Login
-                    <div className="input-container">
-                        <label>Username </label>
-                        <input type="text" name="uname" required 
-                        onChange={(e) => setUserName(e.target.value)}/>
-                    </div>
-                    <div className="input-container">
-                        <label>Password </label>
-                        <input type="password" name="pass" required
-                        onChange={(e) => setEmail(e.target.value)} />
-                    </div>
-                    <div className="button-container">
-                        <button type='submit'>
-                            Submit 
-                        </button>
-                        {managerError ? 'Username or Email not recognized' : ''}
-                    </div>
-                </form>
+                    <TextField  onChange={(e) => setUserName(e.target.value)}
+                            required
+                            id="outlined-textarea"
+                            label="Username"
+                            placeholder="Placeholder"
+                            multiline
+                            name='username'
+                        />
+                        <TextField 
+                            required
+                            id="outlined-textarea"
+                            label="Password"
+                            placeholder="Placeholder"
+                            multiline
+                            name='password'
+                        />
+                        <Button variant="outlined" onClick={(e) => handleManagerSubmit(e)}>Submit</Button>
+                </FormControl>
             </div>
             </Modal>
+            <SignUp show={showNew} setShow={setShowNew} />
         </div>
         </div>
     )

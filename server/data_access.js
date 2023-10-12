@@ -62,6 +62,11 @@ module.exports.call = async function call(operation, parameters, callback) {
             callback({ lastFeedback: lastFeedbackNumber})
             break;
 
+        case 'lastEmployee':
+            const lastEmployeeNumber = await employeeC.find({}).sort({_id:-1}).limit(1).toArray();
+            callback({ lastFeedback: lastEmployeeNumber})
+            break;
+
         // create
         case 'managerResponseToFeedback':
             callback({ status: 'Response sucessful ' + parameters.response})
@@ -74,6 +79,13 @@ module.exports.call = async function call(operation, parameters, callback) {
                 (reason)=>{callback({ status: 'Error submitting feedback'})}
             )
             break;
+
+        case 'addNewEmployee':
+            await employeeC.insertOne(parameters.employeeObject)
+            .then(
+                (result)=>{callback({ status: 'Employee added succesfully'})},
+                (reason)=>{callback({ status: 'Failed to add employee'})}
+            )
 
         case 'pythonGiveAnalysis':
             callback({ status: 'Alalysis sucessful ' + parameters.analysis})
