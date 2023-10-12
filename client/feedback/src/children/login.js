@@ -101,6 +101,7 @@ function Login(props) {
                             name='password'
                         />
                         <Button variant="outlined" onClick={(e) => handleEmployeeSubmit(e)}>Submit</Button>
+                        {employeeError ? 'Username not found' : ''}
                 </FormControl>
                 <FormControl>
                     Manager Login
@@ -121,10 +122,13 @@ function Login(props) {
                             name='password'
                         />
                         <Button variant="outlined" onClick={(e) => handleManagerSubmit(e)}>Submit</Button>
+                        {managerError ? 'Username not found' : ''}
                 </FormControl>
             </div>
             </Modal>
-            <SignUp show={showNew} setShow={setShowNew} />
+            <SignUp show={showNew} setShow={setShowNew} setUserInfo={props.setUserInfo}
+            setShowEmployee={props.setShowEmployee} setUserId={props.setUserId}
+            setShowLogin={props.setShowLogin}/>
         </div>
         </div>
     )

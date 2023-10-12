@@ -110,22 +110,22 @@ app.get('/api/lastEmployee', cors(), (req, res) => {
 
 app.post('/api/newEmployee', cors(), (req, res) => {
     dao.call('addNewEmployee', {employeeObject: req.body}, (results) => {
-        if (!results.status) {
+        if (!results.statusNew) {
             res.statusCode = 404;
             res.end();
         } else {
-            res.send(results.status)
+            res.send(results.statusNew)
         }
     })
 })
 
 app.post('/api/:managerID/managerResponse', cors(), (req, res) => {
     dao.call('managerResponseToFeedback', {response: 'Hello there'}, (results) => {
-        if (!results.status) {
+        if (!results.statusNew) {
             res.statusCode = 404;
             res.end();
         } else {
-            res.send(results.status)
+            res.send(results.statusNew)
         }
     })
 })
@@ -133,22 +133,22 @@ app.post('/api/:managerID/managerResponse', cors(), (req, res) => {
 app.post('/api/:employeeID/employeeGiveFeedback', cors(), (req, res) => {
     console.log(typeof req.body)
     dao.call('employeeGiveFeedback', {feedback: req.body}, (results) => {
-        if (!results.status) {
+        if (!results.statusNew) {
             res.statusCode = 404;
             res.end();
         } else {
-            res.send(results.status)
+            res.send(results.statusNew)
         }
     })
 })
 
 app.post('/api/pythonAnalysis', cors(), (req, res) => {
     dao.call('pythonGiveAnalysis', {analysis: 'snake'}, (results) => {
-        if (!results.status) {
+        if (!results.statusNew) {
             res.statusCode = 404;
             res.end();
         } else {
-            res.send(results.status)
+            res.send(results.statusNew)
         }
     })
 })
