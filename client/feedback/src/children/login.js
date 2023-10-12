@@ -74,15 +74,16 @@ function Login(props) {
     }
 
     return (
-        <div>
+        <div className='login'>
         <h1>Welcome to Fellowship Feedback!</h1>
+        <h4>A place to anonymously submit feedback to your manager and receive a personal response. Sign up today!</h4>
         <div>
-            <Button className="button" variant="outlined" onClick={() => setShow(true)}>Log In</Button>
-            <Button className="button" variant="outlined" onClick={() => setShowNew(true)}>Sign Up</Button>
+            <button className="button" onClick={() => setShow(true)}>Log In</button>
+            <button className="button" onClick={() => setShowNew(true)}>Sign Up</button>
             <Modal styles={modalStyles} show={show} onClose={() => setShow(false)}>
             <div className="modal-body">
                 <FormControl>
-                    Employee login
+                    Employee Login
                     <TextField  onChange={(e) => setUserName(e.target.value)}
                             required
                             id="outlined-textarea"

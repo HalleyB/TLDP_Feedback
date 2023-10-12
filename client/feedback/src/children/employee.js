@@ -72,7 +72,7 @@ function Employee(props) {
                 })}
             </div>
         </div>
-        <button onClick={() => setShowModal(true)}>Add New Feedback</button>
+        <button className='button' onClick={() => setShowModal(true)}>Add New Feedback</button>
         <EmployeeFeedback show={showModal} setShow={setShowModal} 
         userInfo={props.userInfo} setNewData={setNewData}/>
     </div>

@@ -12,17 +12,36 @@
   background-color: var(--background)
 }
 
-h1, h2, h3 {
+.login {
+  background-color: var(--secondary);
+}
+
+h1, h3 {
   background-color: var(--primary);
   margin: 0;
   height: 50px;
-  vertical-align: center;
+  text-align: center;
+  vertical-align: middle;
 }
 
-
+h4 {
+  padding: 0;
+  margin: 0;
+  height: 250px;
+  text-align: center;
+  vertical-align: middle;
+}
 
 .button {
-  color: var(--accent);
+  background-color: var(--accent);
+  border: none;
+  color: var(--text);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .parent {

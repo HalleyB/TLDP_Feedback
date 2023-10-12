@@ -65,7 +65,7 @@ function Manager(props) {
             })}
             </div>
         </div>
-        <button onClick={() => setShowModal(true)}>Add New Response</button>
+        <button className="button" onClick={() => setShowModal(true)}>Add New Response</button>
         <ManagerResponse show={showModal} setShow={setShowModal} />
     </div>
     )
