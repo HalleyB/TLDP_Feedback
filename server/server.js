@@ -64,7 +64,7 @@ app.get('/api/:employeeID/employeePreviousFeedback', cors(), (req, res) => {
 })
 
 app.get('/api/:employeeID/employeeManagerResponses', cors(), (req, res) => {
-    dao.call('employeeGetResponses', {}, (results)=> {
+    dao.call('employeeGetResponses', {employeeId: req.params.employeeID}, (results)=> {
         if (!results.responses) {
             res.statusCode = 404;
             res.end();
@@ -93,6 +93,28 @@ app.get('/api/lastFeedback', cors(), (req, res) => {
             res.end();
         } else {
             res.send(JSON.stringify(results.lastFeedback[0].feedback_id))
+        }
+    })
+})
+
+app.get('/api/lastEmployee', cors(), (req, res) => {
+    dao.call('lastEmployee', {}, (results) => {
+        if (!results.lastEmployee) {
+            res.statusCode = 404;
+            res.end();
+        } else {
+            res.send(JSON.stringify(results.lastEmployee[0].employee_id))
+        }
+    })
+})
+
+app.post('/api/newEmployee', cors(), (req, res) => {
+    dao.call('addNewEmployee', {employeeObject: req.body}, (results) => {
+        if (!results.status) {
+            res.statusCode = 404;
+            res.end();
+        } else {
+            res.send(results.status)
         }
     })
 })

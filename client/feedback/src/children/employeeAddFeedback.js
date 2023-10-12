@@ -38,6 +38,15 @@ function EmployeeFeedback(props) {
         setFeedbackForm({...feedbackForm, [e.target.name]: e.target.value})
     }
 
+    const resetForm = () => {
+        setFeedbackForm({
+            manager_id: props.userInfo.manager_id, date: '', 
+            employee_id: props.userInfo.employee_id, feedback: '',
+            job_satisfaction: -1, manager_feedback: -1, career_growth: -1,
+            feedback_id: 0
+        })
+    }
+
     const handleSubmit = () => {
         if (!feedbackForm.feedback) {
             setFeedbackErr(true)
@@ -48,6 +57,7 @@ function EmployeeFeedback(props) {
                 return response.json()
             })
             .then(data => {
+                props.setShow(false)
                 let feedbackId = data
                 feedbackId = feedbackId + 1
                 setFeedbackForm({...feedbackForm, feedback_id: feedbackId})
@@ -62,6 +72,10 @@ function EmployeeFeedback(props) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(feedbackForm)
+        })
+        .then(data => {
+            props.setNewData(true)
+            resetForm()
         })
     }
 

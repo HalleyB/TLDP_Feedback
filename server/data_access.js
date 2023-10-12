@@ -20,6 +20,7 @@ module.exports.call = async function call(operation, parameters, callback) {
     // set the collection to use
     const employeeC = db.collection('employee_data')
     const feedbackC = db.collection('feedback_data')
+    const responseC = db.collection('response_data')
 
     switch(operation) {
         // read
@@ -48,7 +49,8 @@ module.exports.call = async function call(operation, parameters, callback) {
             break;
         
         case 'employeeGetResponses':
-            callback({ responses: 'Responses from manager'})
+            const employeeManagerResponses = await responseC.find({'employee_id':  +parameters.employeeId}).toArray()
+            callback({ responses: employeeManagerResponses})
             break;
 
         case 'pythonGetData':
@@ -58,6 +60,11 @@ module.exports.call = async function call(operation, parameters, callback) {
         case 'lastFeedback':
             const lastFeedbackNumber = await feedbackC.find({}).sort({_id:-1}).limit(1).toArray();
             callback({ lastFeedback: lastFeedbackNumber})
+            break;
+
+        case 'lastEmployee':
+            const lastEmployeeNumber = await employeeC.find({}).sort({_id:-1}).limit(1).toArray();
+            callback({ lastFeedback: lastEmployeeNumber})
             break;
 
         // create
@@ -72,6 +79,13 @@ module.exports.call = async function call(operation, parameters, callback) {
                 (reason)=>{callback({ status: 'Error submitting feedback'})}
             )
             break;
+
+        case 'addNewEmployee':
+            await employeeC.insertOne(parameters.employeeObject)
+            .then(
+                (result)=>{callback({ status: 'Employee added succesfully'})},
+                (reason)=>{callback({ status: 'Failed to add employee'})}
+            )
 
         case 'pythonGiveAnalysis':
             callback({ status: 'Alalysis sucessful ' + parameters.analysis})
