@@ -35,6 +35,7 @@ function Login(props) {
         .then(data => {
             setEmployeeError(false)
             props.setUserId(data.employee_id)
+            props.setUserInfo(data)
             props.setShowEmployee(true)
             props.setShowLogin(false)
         })
@@ -46,16 +47,20 @@ function Login(props) {
 
     const handleManagerSubmit = (e) => {
         e.preventDefault()
-        fetch('/api/getManagerID')
+        fetch(`/api/getManagerID/${userName}`)
         .then(response => {
             return response.json()
         })
         .then(data => {
-            console.log(data)
-            setManagerError(false)
-            props.setUserId(data)
-            props.setShowManager(true)
-            props.setShowLogin(false)
+            if (data.is_manager) {
+                setManagerError(false)
+                props.setUserId(data.employee_id)
+                props.setUserInfo(data)
+                props.setShowManager(true)
+                props.setShowLogin(false)
+            } else {
+                setManagerError(true)
+            }
         })
         .catch(err => {
             setManagerError(true)
