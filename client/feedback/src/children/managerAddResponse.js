@@ -120,8 +120,8 @@ function ManagerResponse(props) {
                             defaultValue=""
                             onChange={(e) => handleResponse(e)}
 />
-                        <Button onClick={() => handleSubmit()}>Submit</Button>
-                        <Button onClick={() => props.setShow(false)}>Cancel</Button>
+                        <button className='cancel' onClick={() => props.setShow(false)}>Cancel</button>
+                        <button className='button' onClick={() => handleSubmit()}>Submit</button>
                     </FormControl>
                     {resError ? 'Please ensure all boxes are filled out' : ''}
                 </div>

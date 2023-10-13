@@ -144,9 +144,9 @@ function SignUp(props) {
 
                         </RadioGroup>
                         </FormLabel>
+                        <button className='cancel' onClick={() => props.setShow(false)}>Cancel</button>
+                        <button className='button'  onClick={(e) => handleSignUp(e)}>Submit</button>
                     </FormControl>
-                    <Button variant='outline' onClick={(e) => handleSignUp(e)}>Submit</Button>
-                    <Button variant='outline' onClick={() => props.setShow(false)}>Cancel</Button>
                 </div>
             </Modal>
         </div>

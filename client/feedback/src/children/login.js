@@ -99,7 +99,7 @@ function Login(props) {
                             multiline
                             name='password'
                         />
-                        <Button variant="outlined" onClick={(e) => handleEmployeeSubmit(e)}>Submit</Button>
+                        <button className='button' onClick={(e) => handleEmployeeSubmit(e)}>Submit</button>
                         {employeeError ? 'Username not found' : ''}
                 </FormControl>
                 <FormControl>
@@ -120,7 +120,7 @@ function Login(props) {
                             multiline
                             name='password'
                         />
-                        <Button variant="outlined" onClick={(e) => handleManagerSubmit(e)}>Submit</Button>
+                        <button className='button' onClick={(e) => handleManagerSubmit(e)}>Submit</button>
                         {managerError ? 'Username not found' : ''}
                 </FormControl>
             </div>

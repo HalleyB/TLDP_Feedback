@@ -162,8 +162,8 @@ function EmployeeFeedback(props) {
                 </div>
                 {feedbackErr ? 'Please enter feedback' : ''}
                 <div>
+                    <button className='cancel' onClick={e => props.setShow(false)}>Cancel</button>
                     <button className='button' type='submit' onClick={e => (handleSubmit())}>Submit</button>
-                    <button className='button' onClick={e => props.setShow(false)}>Cancel</button>
                 </div>
             </Modal>
         </div>
