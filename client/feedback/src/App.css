@@ -76,6 +76,10 @@ p:hover {
   color: var(--accent);
 }
 
+.no-hover:hover {
+  color: var(--text);
+}
+
 .button {
   background-color: var(--accent);
   border: 1px solid var(--text);

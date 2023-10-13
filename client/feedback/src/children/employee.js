@@ -124,20 +124,20 @@ function Employee(props) {
         <Modal show={showResponse} styles={modalStyles}>
             <div className='modal-body'>
                 <h3>Feedback</h3>
-                <p>{curResponse.feedback}</p>
+                <p className='no-hover'>{curResponse.feedback}</p>
                 <h3>Response</h3>
-                <p>{curResponse.response}</p>
+                <p className='no-hover'>{curResponse.response}</p>
                 <button className='button' onClick={() => setShowResponse(false)}>Close</button>
             </div>
         </Modal>
         <Modal show={showFDetails} styles={modalStyles}>
             <div className='modal-body'>
                 <h3>Feedback</h3>
-                <p>{curFeedback.feedback}</p>
+                <p className='no-hover'>{curFeedback.feedback}</p>
                 <h3>Date</h3>
-                <p>{curFeedback.date}</p>
+                <p className='no-hover'>{curFeedback.date}</p>
                 <h3>Manager</h3>
-                <p>{getManager(curFeedback.manager_id)}</p>
+                <p className='no-hover'>{getManager(curFeedback.manager_id)}</p>
                 <button className='button' onClick={() => setShowFDetails(false)}>Close</button>
             </div>
         </Modal>

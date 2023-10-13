@@ -128,18 +128,20 @@ function Manager(props) {
         <Modal styles={modalStyles} show={showFeedback}>
             <div className='modal-body'>
                 <h3>Feedback</h3>
-                <p>{currentFeedback.feedback}</p>
+                <p className='no-hover'>{currentFeedback.feedback}</p>
                 <h3>Response</h3>
-                <p>{currentFeedback.response}</p>
+                <p className='no-hover'>{currentFeedback.response}</p>
                 <button className='button' onClick={() => setShowFeedback(false)}>Close</button>
             </div>
         </Modal>
         <Modal styles={modalStyles} show={showFDetails}>
             <div className='modal-body'>
                 <h3>Feedback</h3>
-                <p>{currentFeedback.feedback}</p>
+                <p className='no-hover'>{currentFeedback.feedback}</p>
+                <h3>Rating</h3>
+                <p className='no-hover'>{currentFeedback.sentiment}</p>
                 <h3>Date</h3>
-                <p>{currentFeedback.date}</p>
+                <p className='no-hover'>{currentFeedback.date}</p>
                 <button className='button' onClick={() => setShowFDetails(false)}>Close</button>
             </div>
         </Modal>
