@@ -169,3 +169,22 @@ p:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent);
 }
+
+.header {
+  display: inline;
+  background-color: var(--primary);
+  width: 100%;
+  height: 100px;
+}
+
+.header-title {
+  width: 75%;
+  display: inline-block;
+  text-align: left;
+}
+
+.header-child {
+  width: 25%;
+  display: inline-block;
+  text-align: right;
+}

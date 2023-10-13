@@ -74,11 +74,16 @@ function Login(props) {
 
     return (
         <div className='login'>
-        <h2>Welcome to Fellowship Feedback!</h2>
-        <h4>A place to anonymously submit feedback to your manager and receive a personal response. Sign up today!</h4>
-        <div>
+        <div className='header'>
+            <div className='header-title'>
+            <h2>FELLOWSHIP FEEDBACK</h2>
+            </div>
+            <div className='header-child'>
             <button className="button" onClick={() => setShow(true)}>Log In</button>
             <button className="button" onClick={() => setShowNew(true)}>Sign Up</button>
+            </div>
+        </div>
+        <h4>A PLACE TO ANONYMOUSLY SUBMIT FEEDBACK TO YOUR MANAGERS AND RECEIVE A PERSONAL RESPONSE</h4>
             <Modal styles={modalStyles} show={show} onClose={() => setShow(false)}>
             <div className="modal-body">
                 <FormControl>
@@ -128,7 +133,6 @@ function Login(props) {
             <SignUp show={showNew} setShow={setShowNew} setUserInfo={props.setUserInfo}
             setShowEmployee={props.setShowEmployee} setUserId={props.setUserId}
             setShowLogin={props.setShowLogin}/>
-        </div>
         </div>
     )
 }
