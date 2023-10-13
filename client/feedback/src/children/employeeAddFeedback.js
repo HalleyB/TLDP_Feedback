@@ -63,7 +63,7 @@ function EmployeeFeedback(props) {
             })
             .then(data => {
                 props.setShow(false)
-                props.setDate()
+                setDate()
                 let feedbackId = data
                 feedbackId = feedbackId + 1
                 setFeedbackForm({...feedbackForm, feedback_id: feedbackId})
