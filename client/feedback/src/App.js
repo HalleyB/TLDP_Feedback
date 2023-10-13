@@ -18,9 +18,9 @@ function App() {
       setShowManager={setShowManager} setShowEmployee={setShowEmployee}
       setUserInfo={setUserInfo} />
       <Employee userId={userId} userInfo={userInfo} show={showEmployee}
-      setShowEmployee={setShowEmployee}/>
+      setShowEmployee={setShowEmployee} setShowLogin={setShowLogin}/>
       <Manager userId={userId} userInfo={userInfo} show={showManager}
-      setShowManager={setShowManager}/>
+      setShowManager={setShowManager} setShowLogin={setShowLogin}/>
     </div>
   );
 }
