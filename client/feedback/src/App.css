@@ -4,19 +4,38 @@
 --primary: #539393;
 --secondary: #c8d4e0;
 --accent: #4f8c6e;
+--darkAccent: #3f7058;
 }
+
 
 .App {
   text-align: center;
   color: var(--text);
-  background-color: var(--background)
+  background-color: var(--background);
 }
 
 .login {
   background-color: var(--secondary);
 }
 
-h1, h3 {
+.header {
+  background-color: var(--primary);
+  margin: 0;
+  border: 0;
+  padding: 0;
+  height: 50px;
+}
+
+h1 {
+  margin: 3%;
+  text-align: left;
+  vertical-align: middle;
+  color: var(--background);
+  text-shadow: 1px 0 0 var(--text), 0 -1px 0 var(--text), 0 1px 0 var(--text), -1px 0 0 var(--text);
+
+}
+
+h3 {
   background-color: var(--primary);
   margin: 0;
   height: 50px;
@@ -32,6 +51,10 @@ h4 {
   vertical-align: middle;
 }
 
+p:hover {
+  color: var(--accent);
+}
+
 .button {
   background-color: var(--accent);
   border: none;
@@ -42,6 +65,9 @@ h4 {
   display: inline-block;
   font-size: 16px;
   font-weight: bold;
+}
+.button:hover {
+  background-color: var(--darkAccent);
 }
 
 .button-signup {
@@ -68,20 +94,52 @@ h4 {
   font-weight: bold;
 }
 
-.parent {
-  margin: 1rem;
-  padding: 2rem 2rem;
-  text-align: center;
+.page-body {
+  margin: 1em;
 }
 
 .past-feedback {
-  width: 50%;
+  width: 48%;
+  margin: 1%;
   display: inline-block;
   vertical-align: top;
 }
 
 .past-responses {
-  width: 50%;
+  width: 48%;
+  margin: 1%;
   display: inline-block;
   vertical-align: top;
+}
+
+.feedback {
+  height: 500px;
+  margin: 1%;
+  overflow-y: auto;
+}
+
+.responses {
+  height: 500px;
+  margin: 1%;
+  overflow-y: auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--secondary);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
 }

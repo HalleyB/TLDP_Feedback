@@ -1,5 +1,4 @@
 import React, { useState, useEffect} from 'react';
-import { Button } from '@mui/material';
 import ManagerResponse from './managerAddResponse';
 import Modal from './modal';
 
@@ -13,6 +12,7 @@ function Manager(props) {
     const [newData, setNewData] = useState(false)
     const [showFeedback, setShowFeedback] = useState(false)
     const [currentFeedback, setCurrentFeedback] = useState({})
+    const [showFDetails, setShowFDetails] = useState(false)
 
     const modalStyles = {
         position: 'fixed',
@@ -87,13 +87,19 @@ function Manager(props) {
     }
 
     return (<div className='parent'>
-        <h1>Welcome {props.userInfo.employee_info.name}</h1>
+        <div className='header'>
+            <h1>Welcome {props.userInfo.employee_info.name}</h1>
+        </div>
+        <div className='page-body'>
         <div className='past-feedback'>
             <h3>Unanswered Feedback</h3>
             <div className='feedback'>
             {unansweredFeedback.map((feedbackObject, index) => {
                 return (
-                    <p key={index}>
+                    <p key={index} onClick={() => {
+                        setCurrentFeedback(feedbackObject)
+                        setShowFDetails(true)
+                    }}>
                     {feedbackObject.sentiment} Feedback #{feedbackObject.feedback_id}: {feedbackObject.feedback}
                     </p>
                 )
@@ -106,7 +112,6 @@ function Manager(props) {
             {pastResponses.map((responseObject, index) => {
                 return (
                     <p key={index} onClick={() => {
-                        console.log('here')
                         setShowFeedback(true)
                         setCurrentFeedback(responseObject)
                     }}>
@@ -120,15 +125,25 @@ function Manager(props) {
         <Modal styles={modalStyles} show={showFeedback}>
             <div className='modal-body'>
                 <h3>Feedback</h3>
-                {currentFeedback.feedback}
+                <p>{currentFeedback.feedback}</p>
                 <h3>Response</h3>
-                {currentFeedback.response}
-                <Button onClick={() => setShowFeedback(false)}>Close</Button>
+                <p>{currentFeedback.response}</p>
+                <button className='button' onClick={() => setShowFeedback(false)}>Close</button>
+            </div>
+        </Modal>
+        <Modal styles={modalStyles} show={showFDetails}>
+            <div className='modal-body'>
+                <h3>Feedback</h3>
+                <p>{currentFeedback.feedback}</p>
+                <h3>Date</h3>
+                <p>{currentFeedback.date}</p>
+                <button className='button' onClick={() => setShowFDetails(false)}>Close</button>
             </div>
         </Modal>
         <button className="button" onClick={() => setShowModal(true)}>Add New Response</button>
         <ManagerResponse show={showModal} setShow={setShowModal} setNewData={setNewData}
         unansweredFeedback={unansweredFeedback} userId={props.userId}/>
+        </div>
     </div>
     )
 }

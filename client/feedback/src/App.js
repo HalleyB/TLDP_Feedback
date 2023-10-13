@@ -14,6 +14,12 @@ function App() {
 
   return (
     <div className="App">
+      {(showEmployee || showManager) ? <div className='logout-button'>
+        <button className='button' onClick={() => {
+          setShowEmployee(false)
+          setShowManager(false)
+          }}>Logout</button>
+      </div> : ''}
       <Login show={showLogin} setUserId={setUserId} setShowLogin={setShowLogin}
       setShowManager={setShowManager} setShowEmployee={setShowEmployee}
       setUserInfo={setUserInfo} />
