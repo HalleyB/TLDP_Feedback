@@ -93,10 +93,10 @@ function Login(props) {
                         />
                         <TextField 
                             required
-                            id="outlined-textarea"
+                            id="outlined-password-input"
                             label="Password"
-                            placeholder="Placeholder"
-                            multiline
+                            placeholder="Password"
+                            type="password"
                             name='password'
                         />
                         <button className='button' onClick={(e) => handleEmployeeSubmit(e)}>Submit</button>
@@ -114,11 +114,11 @@ function Login(props) {
                         />
                         <TextField 
                             required
-                            id="outlined-textarea"
+                            id="outlined-password-input"
                             label="Password"
-                            placeholder="Placeholder"
-                            multiline
+                            placeholder="Password"
                             name='password'
+                            type='password'
                         />
                         <button className='button' onClick={(e) => handleManagerSubmit(e)}>Submit</button>
                         {managerError ? 'Username not found' : ''}
