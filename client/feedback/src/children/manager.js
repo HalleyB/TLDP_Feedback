@@ -89,6 +89,9 @@ function Manager(props) {
     return (<div className='parent'>
         <div className='header'>
             <h1>Welcome {props.userInfo.employee_info.name}</h1>
+                <button className='logout-button' onClick={() => {
+                props.setShowManager(false)
+                }}>Logout</button>
         </div>
         <div className='page-body'>
         <div className='past-feedback'>

@@ -83,6 +83,9 @@ function Employee(props) {
     return (<div className='parent'>
         <div className='header'>
             <h1>Welcome {props.userInfo.employee_info.name}</h1>
+                <button className='logout-button' onClick={() => {
+                props.setShowEmployee(false)
+                }}>Logout</button>
         </div>
         <div className='page-body'>
         <div className='past-feedback'>

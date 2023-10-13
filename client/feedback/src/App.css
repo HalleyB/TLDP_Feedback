@@ -23,19 +23,40 @@
   margin: 0;
   border: 0;
   padding: 0;
-  height: 50px;
+  height: 75px;
+}
+
+.logout-button {
+  float: right;
+  margin-right: 5px;
+  margin-top: 15px;
+  width: auto;
+  background-color: var(--background);
+  border: 1px solid black;
+  color: var(--text);
+  text-align: center;
+  padding: 5px 8px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.logout-button:hover {
+  background-color: var(--secondary);
 }
 
 h1 {
-  margin: 3%;
+  display: inline-block;
   text-align: left;
-  vertical-align: middle;
+  margin: 3%;
+  width: auto;
   color: var(--background);
   text-shadow: 1px 0 0 var(--text), 0 -1px 0 var(--text), 0 1px 0 var(--text), -1px 0 0 var(--text);
 
 }
 
-h3 {
+h2, h3 {
   background-color: var(--primary);
   margin: 0;
   height: 50px;
@@ -57,7 +78,8 @@ p:hover {
 
 .button {
   background-color: var(--accent);
-  border: none;
+  border: 1px solid var(--text);
+  border-radius: 8px;
   color: var(--text);
   padding: 15px 32px;
   text-align: center;

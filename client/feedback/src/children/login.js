@@ -74,7 +74,7 @@ function Login(props) {
 
     return (
         <div className='login'>
-        <h1>Welcome to Fellowship Feedback!</h1>
+        <h2>Welcome to Fellowship Feedback!</h2>
         <h4>A place to anonymously submit feedback to your manager and receive a personal response. Sign up today!</h4>
         <div>
             <button className="button" onClick={() => setShow(true)}>Log In</button>
